@@ -15,5 +15,5 @@ See the build instructions in each project folder.
 
 ## Project 2 - System Monitor
 
-In this project, a system monitor is created which resembles the program htop, which is a standard program for monitoring Linux systems applications.
+> In this project, a system monitor is created which resembles the program htop, which is a standard program for monitoring Linux systems applications.
     
