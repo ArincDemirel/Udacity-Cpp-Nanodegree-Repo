@@ -6,8 +6,6 @@ This repo contains the starter code for the Route Planning project.
 
 ## Cloning
 
-
-```
 git clone https:https://github.com/ArincDemirel/Udacity-Cpp-Nanodegree-Repo.git
 ```
 Go to the Route Planning project directory: cd C_Plus_Plus_Nanodegree/Project_1_Route_Planning
