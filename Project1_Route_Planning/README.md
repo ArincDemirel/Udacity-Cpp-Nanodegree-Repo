@@ -6,13 +6,11 @@ This repo contains the starter code for the Route Planning project.
 
 ## Cloning
 
-When cloning this project, be sure to use the `--recurse-submodules` flag. Using HTTPS:
+
 ```
-git clone https://github.com/udacity/CppND-Route-Planning-Project.git --recurse-submodules
+git clone https:https://github.com/ArincDemirel/Udacity-Cpp-Nanodegree-Repo.git
 ```
-or with SSH:
-```
-git clone git@github.com:udacity/CppND-Route-Planning-Project.git --recurse-submodules
+Go to the Route Planning project directory: cd C_Plus_Plus_Nanodegree/Project_1_Route_Planning
 ```
 
 ## Dependencies for Running Locally
@@ -34,7 +32,6 @@ git clone git@github.com:udacity/CppND-Route-Planning-Project.git --recurse-subm
 ## Compiling and Running
 
 ### Compiling
-To compile the project, first, create a `build` directory and change to that directory:
 ```
 mkdir build && cd build
 ```
@@ -43,7 +40,9 @@ From within the `build` directory, then run `cmake` and `make` as follows:
 cmake ..
 make
 ```
+
 ### Running
+
 The executable will be placed in the `build` directory. From within `build`, you can run the project as follows:
 ```
 ./OSM_A_star_search
@@ -53,53 +52,17 @@ Or to specify a map file:
 ./OSM_A_star_search -f ../<your_osm_file.osm>
 ```
 
+
+## Usage
+
+The program will ask you to enter the starting position and the ending position at the beginning as stated below:
+Please enter start_x, start_y, end_x, end_y in order
+For example, just input 10 10 90 90 and press Enter, the shortest path will be drawn on the map.
+
 ## Testing
 
 The testing executable is also placed in the `build` directory. From within `build`, you can run the unit tests as follows:
 ```
 ./test
 ```
-
-## Troubleshooting
-* Some students have reported issues in cmake to find io2d packages, make sure you have downloaded [this](https://github.com/cpp-io2d/P0267_RefImpl/blob/master/BUILDING.md#xcode-and-libc).
-* For MAC Users cmake issues: Comment these lines from CMakeLists.txt under P0267_RefImpl
-    ```
-    if( NOT DEFINED IO2D_WITHOUT_SAMPLES )
-	     add_subdirectory(P0267_RefImpl/Samples)
-    endif()
-    ```
-    And then run "ALL_Build" and "install" in XCode.
-    
-    If any packages are missing try to install packages using 
-    ```
-    brew install pkg-config
-    ```
- * For Ubuntu Linux IO2D installation errors, follow the given steps:
-   ```
-	sudo apt update
-	sudo apt install build-essential
-	sudo apt install cmake
-	sudo apt install libcairo2-dev
-	sudo apt install libgraphicsmagick1-dev
-	sudo apt install libpng-dev
-
-	git clone --recurse-submodules https://github.com/cpp-io2d/P0267_RefImpl
-	cd P0267_RefImpl
-	mkdir Debug
-	cd Debug
-	cmake --config Debug "-DCMAKE_BUILD_TYPE=Debug" ..
-	cmake --build .
-	sudo make install
-   ```
-     
- * If you are working on windows and unable to install IO2D:
-      * Enable WSL (Windows Subsystem for Linux) and use a distribution like [Ubuntu](https://ubuntu.com/wsl).(available from the windows store): 
-      * Install the required dependencies (compiler, cmake etc.) in the WSL(as mentioned above for ubuntu)
-      * Configure CLion to use the WSL [toolchain](https://www.jetbrains.com/help/clion/how-to-use-wsl-development-environment-in-product.html#wsl-tooclhain)
-      * Use the WSL toolchain to build the project
-      * If you are still facing errors, visit this [link](https://github.com/udacity/CppND-Route-Planning-Project/issues/9).
-     
-
-* If you are facing errors with --config try to remove -- from the command.
-
 
