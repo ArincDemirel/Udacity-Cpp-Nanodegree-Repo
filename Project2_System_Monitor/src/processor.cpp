@@ -32,7 +32,7 @@ float Processor::Utilization() {
         return 0.0;
     }
 
-    float cpuUtilization = 100.0 * (1.0 - static_cast<float>(idleDelta) / totalDelta);
+    float cpuUtilization = (1.0 - static_cast<float>(idleDelta) / totalDelta); //did not multiply with 100 since the units are in KB, it cancels out each other.
 
     prevCpuStats = currCpuStats;
 

@@ -13,9 +13,9 @@ using std::to_string;
 using std::vector;
 
 string LinuxParser::OperatingSystem() {
-  string line;
-  string key;
-  string value;
+  std::string line;
+  std::string key;
+  std::string value;
   std::ifstream filestream(kOSPath);
   if (filestream.is_open()) {
     while (std::getline(filestream, line)) {
@@ -35,8 +35,8 @@ string LinuxParser::OperatingSystem() {
 }
 
 string LinuxParser::Kernel() {
-  string os, kernel;
-  string line;
+  std::string os, kernel;
+  std::string line;
   std::ifstream stream(kProcDirectory + kVersionFilename);
   if (stream.is_open()) {
     std::getline(stream, line);
@@ -48,16 +48,6 @@ string LinuxParser::Kernel() {
 
 
 std::vector<int> LinuxParser::Pids() {
-    // std::vector<int> pids;
-    // for (const auto& entry : std::filesystem::directory_iterator(kProcDirectory)) {
-    //     if (entry.is_directory()) {
-    //         std::string filename = entry.path().filename().string();
-    //         if (std::all_of(filename.begin(), filename.end(), ::isdigit)) {
-    //             int pid = std::stoi(filename);
-    //             pids.push_back(pid);
-    //         }
-    //     }
-    // }
     vector<int> pids;
     DIR *directory = opendir(kProcDirectory.c_str());
     struct dirent *file;
@@ -81,35 +71,38 @@ std::vector<int> LinuxParser::Pids() {
 
 //  Read and return the system memory utilization
 float LinuxParser::MemoryUtilization() { 
-  std::ifstream meminfo(kMeminfoFilename);
-  std::string line;
+  std::ifstream memInfo(kProcDirectory + kMeminfoFilename);
+  
   double totalMemory = 0.0;
-  double availableMemory = 0.0; 
-  while (std::getline(meminfo, line)) {
-        std::istringstream linestream(line);
-        std::string key;
-        double value;
+  double availableMemory = 0.0;
 
-        // Parse each line to extract memory information
-        linestream >> key >> value;
-        if (key == "MemTotal:") {
-            totalMemory = value;
-        } else if (key == "MemAvailable:") {
-            availableMemory = value;
-        }
+  if(memInfo.is_open()){
+    std::string line;
+    
+    while (getline(memInfo, line)) {
+          std::istringstream linestream(line);
+          std::string key,value;
+          linestream >> key >> value;
 
-        // Break the loop if both values are found
-        if (totalMemory > 0.0 && availableMemory > 0.0) {
-            break;
+          if (key == "MemTotal:") {
+              totalMemory = std::stod(value);
+          } else if (key == "MemAvailable:") {
+              availableMemory = std::stod(value);
+          }
+
+          // Break the loop if both values are found
+          if (totalMemory > 0.0 && availableMemory > 0.0) {
+              break;
+          }
         }
-    } 
+      } 
     if (totalMemory == 0.0) {
         return 0.0;
     }
-    double memoryUtilization = 100.0 * (1.0 - (availableMemory / totalMemory));
+    double memoryUtilization =  (totalMemory - availableMemory) / totalMemory ;
     return memoryUtilization;
+    }
   
-  }
 
 // Read and return the system uptime
 long LinuxParser::UpTime() { 
@@ -245,57 +238,49 @@ float LinuxParser::CpuUtilizationProcess(int pid) {
     long seconds = uptime - (starttime / sysconf(_SC_CLK_TCK));
 
     if (seconds > 0) {
-          cpuUsage = 100.0 * ((total_time / sysconf(_SC_CLK_TCK)) / static_cast<float>(seconds));
+          cpuUsage =  ((total_time / sysconf(_SC_CLK_TCK)) / static_cast<float>(seconds));
       }
 
       return cpuUsage;
   }
 // Read and return the total number of processes
 int LinuxParser::TotalProcesses() {
-  int totalnumofRunningProcesses = 0;
-  std::ifstream statFile(kProcDirectory+kStatusFilename);
+  int totalProcesses = 0;
+  std::ifstream statFile(kProcDirectory + kStatFilename);
   
   if(statFile.is_open()){
-    string line;
-    while(std::getline(statFile, line)){
+    std::string line;
+    while(getline(statFile, line)){
       std::istringstream linestream(line);
-      string key;
-      linestream >> key;
+      std::string key, value;
+      linestream >> key >> value ;
       if(key == "processes"){
-        linestream >> totalnumofRunningProcesses;
+        totalProcesses = std::stoi(value);
         break;
-      }else{
-        std::cerr << "Error: Couldn't open the stat file." << std::endl;
-        throw std::runtime_error("Couldn't open the stat file.");
-        }
+      }
       }
     }
-  return totalnumofRunningProcesses; 
+  return totalProcesses; 
   }
 
-// Read and return the number of running processes
-int LinuxParser::RunningProcesses() { 
-  
-  int numofRunningProcesses = 0;
-  std::ifstream statFile(kProcDirectory+kStatusFilename);
-  
-  if(statFile.is_open()){
-    string line;
-    while(std::getline(statFile, line)){
+int LinuxParser::RunningProcesses()
+{
+  std::string procRunning, procRunningNum;
+  std::string line;
+  std::ifstream stream(kProcDirectory + kStatFilename);
+
+  if (stream.is_open())
+  {
+    while (getline(stream, line))
+    {
       std::istringstream linestream(line);
-      string key;
-      linestream >> key;
-      if(key == "procs_running"){
-        linestream >> numofRunningProcesses;
+      linestream >> procRunning >> procRunningNum;
+      if (procRunning == "procs_running")
         break;
-      }else{
-        std::cerr << "Error: Couldn't open the stat file." << std::endl;
-        throw std::runtime_error("Couldn't open the stat file.");
-        }
-      }
     }
-  return numofRunningProcesses; 
   }
+  return std::stoi(procRunningNum);
+}
 
 // Read and return the command associated with a process
 std::string LinuxParser::Command(int pid) {
@@ -326,7 +311,7 @@ std::string LinuxParser::Ram(int pid) {
             // Look for lines containing "VmRSS:" (Resident Set Size)
             if (iss >> key >> value && key == "VmRSS:") {
                 // Memory usage is in kilobytes, you can convert to other units if needed
-                ram_usage = std::to_string(value) + " KB";
+                ram_usage = std::to_string(value / 1000)   + " MB ";
                 break; 
             }
         }
