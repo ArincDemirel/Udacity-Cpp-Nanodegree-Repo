@@ -3,7 +3,11 @@
 Repository of Udacity C++ Nanodegree projects. 
 Sharing while learning 😁.
 
-This program first walk through Object-Oriented Programming and then gets you exposed to Modern C++ features.
+This program first walk through Object-Oriented Programming concepts and then gets you exposed to Modern C++ features.
+
+## Installation
+
+Clone this repo: git clone (https://github.com/ArincDemirel/Udacity-Cpp-Nanodegree-Repo)
 
 ## Build Instructions
 
