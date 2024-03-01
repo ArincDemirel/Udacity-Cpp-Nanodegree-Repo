@@ -7,7 +7,7 @@ This program first walk through Object-Oriented Programming concepts and then ge
 
 ## Installation
 
-Clone this repo: git clone (https://github.com/ArincDemirel/Udacity-Cpp-Nanodegree-Repo)
+Clone this repo: ` git clone https://github.com/ArincDemirel/Udacity-Cpp-Nanodegree-Repo `
 
 ## Build Instructions
 
