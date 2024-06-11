@@ -1,0 +1,3 @@
+/Users/arincdemirel/Documents/GitHub/Udacity-Cpp-Nanodegree-Repo/Project3_Memory_Management_Chatbot/build/CMakeFiles/membot.dir
+/Users/arincdemirel/Documents/GitHub/Udacity-Cpp-Nanodegree-Repo/Project3_Memory_Management_Chatbot/build/CMakeFiles/edit_cache.dir
+/Users/arincdemirel/Documents/GitHub/Udacity-Cpp-Nanodegree-Repo/Project3_Memory_Management_Chatbot/build/CMakeFiles/rebuild_cache.dir

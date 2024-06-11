@@ -15,6 +15,8 @@ ChatBot::ChatBot()
     _image = nullptr;
     _chatLogic = nullptr;
     _rootNode = nullptr;
+
+    std::cout << "Concstructor is called without memory" << std::endl;
 }
 
 // constructor WITH memory allocation
@@ -26,13 +28,14 @@ ChatBot::ChatBot(std::string filename)
     _chatLogic = nullptr;
     _rootNode = nullptr;
 
-    // load image into heap memory
+    // load image into heapexit memory
     _image = new wxBitmap(filename, wxBITMAP_TYPE_PNG);
+    std::cout << "Concstructor is called with memory" << std::endl;
 }
 
 ChatBot::~ChatBot()
 {
-    std::cout << "ChatBot Destructor" << std::endl;
+    std::cout << "ChatBot Destructor without" << std::endl;
 
     // deallocate heap memory
     if(_image != NULL) // Attention: wxWidgets used NULL and not nullptr
@@ -40,6 +43,7 @@ ChatBot::~ChatBot()
         delete _image;
         _image = NULL;
     }
+    
 }
 
 //// STUDENT CODE

@@ -29,7 +29,7 @@ private:
     ChatBotPanelDialog *_panelDialog;
 
     // proprietary type definitions
-    typedef std::vector<std::pair<std::string, std::string>> tokenlist;
+    typedef std::vector<std::pair<std::string, std::string> > tokenlist;
 
     // proprietary functions
     template <typename T>

@@ -15,10 +15,11 @@ private:
     //// STUDENT CODE
     ////
 
-    // data handles (owned)
+    // data handles (owned) // owned means that the entity is responsible for managing the lifetime of the resource.
     std::vector<GraphEdge *> _childEdges;  // edges to subsequent nodes
 
     // data handles (not owned)
+
     std::vector<GraphEdge *> _parentEdges; // edges to preceding nodes 
     ChatBot *_chatBot;
 
